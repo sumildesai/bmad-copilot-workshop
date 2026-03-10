@@ -44,10 +44,12 @@ npx bmad-method install
 **Contains:** Features, User Stories, Success Criteria
 
 ### 2️⃣ Planning Phase
-**Commands:** `/bmad-architect` → `/bmad-create-architecture` → `/bmad-create-epics-and-stories`  
+**Commands:** `/bmad-architect` → `/bmad-create-architecture`  
 **Agent:** Architect  
 **Output:** Architecture document + ADRs in `_bmad-output/`  
-**Contains:** Component structure, Tech stack, Decision records, Epics & Stories
+**Contains:** Component structure, Tech stack, Decision records
+
+*(Then open a new chat → `/bmad-pm` → `/bmad-create-epics-and-stories` to break PRD into epics & stories)*
 
 ### 3️⃣ Story Preparation Phase
 **Commands:** `/bmad-sm` → `/bmad-sprint-planning` (first time) → `/bmad-create-story`  
@@ -85,21 +87,37 @@ your-project/
 
 ## 📝 Agent Question Tips
 
+### ⚡ Shorthand Elicitation (All Agents)
+
+When an agent asks questions during a workflow, use the **shortest possible responses**:
+
+| Shorthand | Meaning |
+|-----------|---------|
+| `Y` | Yes / Agree |
+| `N` | No / Decline |
+| `A` | Accept all remaining defaults |
+| One-line answer | Provide everything upfront to skip follow-up questions |
+
+**Example:** Instead of typing full sentences for each question, give all info at once:
+```
+To-Do App. Simple task manager: add tasks, mark complete, delete tasks, view list. No auth or cloud sync.
+```
+
 ### Product Manager Agent (`/bmad-pm`)
-- **Keep answers short** (1-2 sentences)
-- **Accept defaults** when suggested
+- **Keep answers short** (1-2 sentences or just `Y`/`N`)
+- **Accept defaults** with `Y` when suggested
 - **Be specific** about core features
 - **Avoid scope creep** (no login, databases, etc.)
 
 ### Architect Agent (`/bmad-architect`)
-- **Trust the suggestions** (they're based on best practices)
+- **Trust the suggestions** — respond `Y` to accept best-practice defaults
 - **Choose simple options** (Context over Redux, LocalStorage over DB)
 - **Ask for explanations** if confused
 
 ### Developer Agent (`/bmad-dev-story`)
 - **Pick clear component names** (AddTodoForm, not Form1)
-- **Request validation** when needed
-- **Ask for tests** to be included
+- **Request validation** when needed — type `Y, validate input`
+- **Ask for tests** to be included — type `Y, include tests`
 - **Review code** before accepting
 
 ---
@@ -112,14 +130,8 @@ your-project/
 /bmad-pm
 /bmad-create-prd
 
-# When asked for features, give complete list:
-"Features: add tasks, mark complete, delete tasks, view list"
-
-# When asked about users:
-"Individual users tracking personal tasks"
-
-# When asked about scope:
-"Keep it simple - no auth or cloud sync"
+# Tip: Provide all info upfront to skip follow-up questions:
+To-Do App. Simple task manager: add tasks, mark complete, delete tasks, view list. No auth or cloud sync.
 ```
 
 ### Faster Architecture
@@ -128,10 +140,10 @@ your-project/
 /bmad-architect
 /bmad-create-architecture
 
-# Quick answers:
-"Use React Context, LocalStorage, and TailwindCSS"
+# Quick answer: Y to use React Context, LocalStorage, and TailwindCSS
 
-# Then create epics and stories:
+# Then open a new chat for epics and stories:
+/bmad-pm
 /bmad-create-epics-and-stories
 ```
 
@@ -140,12 +152,11 @@ your-project/
 # Open a new chat, then:
 /bmad-sm
 /bmad-sprint-planning   # first time only
-/bmad-create-story      # select story 1
+/bmad-create-story      # select story 1, answer Y to defaults
 
 # Open another new chat, then:
 /bmad-dev-story
-# Component name: AddTodoForm
-# Additional requirements: "Validate input, clear after submit, include tests"
+# Tip: AddTodoForm, Y validate input, Y include tests
 ```
 
 ---
@@ -245,12 +256,18 @@ BMad V6 works best when each workflow runs in a **new chat session**. This preve
 ### Add Features
 ```bash
 # 1. Update PRD with new feature (fresh chat)
-/bmad-pm → /bmad-create-prd
+/bmad-pm
+/bmad-create-prd
 # 2. Update architecture (fresh chat)
-/bmad-architect → /bmad-create-architecture
-# 3. Create user story (fresh chat)
-/bmad-sm → /bmad-create-story
-# 4. Implement (fresh chat)
+/bmad-architect
+/bmad-create-architecture
+# 3. Create epics and stories (fresh chat)
+/bmad-pm
+/bmad-create-epics-and-stories
+# 4. Create user story (fresh chat)
+/bmad-sm
+/bmad-create-story
+# 5. Implement (fresh chat)
 /bmad-dev-story
 ```
 

@@ -91,17 +91,17 @@ Participants will:
 1. Open a **new chat** in Copilot Chat
 2. Type: `/bmad-pm` to invoke the PM agent
 3. Type: `/bmad-create-prd` to run the PRD workflow
-4. Respond to PM agent questions:
-   - Project name: "To-Do App"
-   - Description: "Simple task manager with add, complete, delete"
-   - Confirm scope: "Yes, start with core features"
+4. Respond to PM agent questions using shorthand:
+   - Project name: `To-Do App`
+   - Description: `Simple task manager: add tasks, mark complete, delete tasks, view list. No auth.`
+   - Confirm scope: `Y` (accept core features)
 5. Review generated PRD saved to `_bmad-output/`
 
 **Facilitator Actions:**
 - **Critical:** The PM agent asks MANY questions. Guide participants to:
-  - **Keep answers concise** (1-2 sentences)
-  - **Accept default suggestions** when offered
-  - **Say "Yes, proceed" when asked for confirmation**
+  - **Use `Y`/`N`** to accept or decline suggestions (fastest)
+  - **Provide all info upfront in one message** to skip follow-up questions
+  - **Type `A`** to accept all remaining defaults at once
 - Watch for confusion or agent getting stuck
   - Fix: Start a **fresh chat** and restart with `/bmad-pm` then `/bmad-create-prd`
 - Share pre-built PRD if anyone falls >5 minutes behind
@@ -148,10 +148,10 @@ Participants will:
 2. Type: `/bmad-architect` to invoke the Architect agent
 3. Type: `/bmad-create-architecture` to run the architecture workflow
 4. Architect agent reads PRD and asks clarifying questions:
-   - State management: "Yes, use React Context"
-   - Styling: "Yes, TailwindCSS is fine"
-   - Data persistence: "Local storage for now"
-5. Run `/bmad-create-epics-and-stories` to break PRD into epics and stories
+   - State management: `Y` (use React Context)
+   - Styling: `Y` (TailwindCSS is fine)
+   - Data persistence: `Y` (local storage for now)
+5. Open another **new chat**, type `/bmad-pm` then `/bmad-create-epics-and-stories` to break PRD into epics and stories
 6. Review generated architecture document in `_bmad-output/`
 
 **Facilitator Actions:**

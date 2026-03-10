@@ -196,12 +196,18 @@ Open it and verify it contains:
 
 ### 💡 Tips
 
+**Use shorthand answers to speed up elicitation:**
+- `Y` — accept a suggestion or answer "yes"
+- `N` — decline a suggestion or answer "no"
+- `A` — accept all remaining defaults at once (skips remaining Q&A)
+- When asked for a list, provide everything upfront in one message to reduce back-and-forth
+
 **Keep answers concise:**
 - The PM agent is conversational - short answers speed things up
 - If stuck or confused, start a fresh chat and run `/bmad-pm` then `/bmad-create-prd` again
 
 **Accept defaults:**
-- Agent often suggests options - saying "yes" saves time
+- Agent often suggests options - saying `Y` or `yes` saves time
 
 **Don't over-scope:**
 - Stick to the 4 core features listed
@@ -290,7 +296,12 @@ The agent saves outputs to the `_bmad-output/` folder:
 
 **5. Create Epics and Stories**
 
-After architecture is complete, still in the same chat, run:
+After architecture is complete, open a **new chat** and run:
+```
+/bmad-pm
+```
+
+Then run the epics and stories workflow:
 ```
 /bmad-create-epics-and-stories
 ```
