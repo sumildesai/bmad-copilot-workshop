@@ -27,8 +27,7 @@ node --version
 
 # Copilot is active
 # In VS Code: Ctrl+Shift+I (Windows) or Cmd+Shift+I (Mac)
-# Type: @workspace /help
-# You should see a response from Copilot
+# You should see the Copilot Chat panel open
 ```
 
 If either check fails, ask your facilitator for help NOW.
@@ -59,13 +58,10 @@ Welcome to BMad Method!
 Let's set up your project...
 ```
 
-**3. Choose your stack**
+**3. Choose your module**
 
 When prompted, select:
-- Framework: **React**
-- Language: **TypeScript**
-- Styling: **TailwindCSS**
-- Testing: **Vitest** (default)
+- Module: **BMad Method**
 
 Use arrow keys and Enter to select.
 
@@ -73,10 +69,10 @@ Use arrow keys and Enter to select.
 
 You'll see:
 ```
-✓ Creating .bmad folder...
-✓ Installing agents...
-✓ Setting up templates...
-✓ Configuring prompts...
+✓ Creating _bmad folder...
+✓ Installing BMad Method module...
+✓ Setting up workflows and agents...
+✓ Creating output folder...
 
 Installation complete! 🎉
 ```
@@ -85,18 +81,18 @@ Installation complete! 🎉
 
 Check that these folders exist:
 ```bash
-ls -la .bmad/
+ls -la _bmad/
 # Should show:
-# - agents/
-# - prompts/
-# - templates/
-# - config.json
+# - bmm/  (contains agents, workflows, tasks)
+
+ls -la _bmad-output/
+# Should show the output folder (may be empty at first)
 ```
 
 ### ✅ Success Criteria
 
-- `.bmad/` folder exists in your project
-- Contains `agents/`, `prompts/`, `templates/` subfolders
+- `_bmad/` folder exists in your project
+- `_bmad-output/` folder exists for generated artifacts
 - No error messages in terminal
 
 ### ⚠️ Common Issues
@@ -131,11 +127,18 @@ code .
 - Windows: `Ctrl+Shift+I`
 - Mac: `Cmd+Shift+I`
 
-**3. Start the PM agent**
+**3. Start a fresh chat and invoke the PM agent**
 
-Type in Copilot Chat:
+> ⚠️ **Important:** Each BMad workflow should run in its own **fresh chat session**. Open a new chat before each exercise.
+
+In Copilot Chat, type:
 ```
-@bmad /start-work
+/bmad-pm
+```
+
+Then run the PRD creation workflow:
+```
+/bmad-create-prd
 ```
 
 **4. Answer the PM agent's questions**
@@ -177,7 +180,7 @@ Yes
 
 **5. Review the generated PRD**
 
-The agent creates: `docs/prd.md`
+The agent saves the output to the `_bmad-output/` folder.
 
 Open it and verify it contains:
 - Project overview
@@ -187,7 +190,7 @@ Open it and verify it contains:
 
 ### ✅ Success Criteria
 
-- `docs/prd.md` file exists
+- PRD file exists in `_bmad-output/`
 - Contains at least 3 user stories
 - Stories follow format: "As a [role], I want [feature] so that [benefit]"
 
@@ -195,7 +198,7 @@ Open it and verify it contains:
 
 **Keep answers concise:**
 - The PM agent is conversational - short answers speed things up
-- If stuck in a loop, type: `/clear` and start over
+- If stuck or confused, start a fresh chat and run `/bmad-pm` then `/bmad-create-prd` again
 
 **Accept defaults:**
 - Agent often suggests options - saying "yes" saves time
@@ -204,11 +207,14 @@ Open it and verify it contains:
 - Stick to the 4 core features listed
 - Resist adding login, databases, etc.
 
+**Use `/bmad-help` when unsure:**
+- Type `/bmad-help` at any time — it will guide you on what to do next
+
 ### ⚠️ Common Issues
 
-**Agent keeps asking the same question**
-- Type: `/clear`
-- Restart with: `@bmad /start-work`
+**Agent gives unexpected responses**
+- Start a fresh chat (open a new chat window)
+- Restart with: `/bmad-pm` then `/bmad-create-prd`
 
 **PRD is too short/missing sections**
 - Ask agent: "Can you add user stories?"
@@ -226,11 +232,18 @@ Use the Architect agent to create technical design documents.
 
 ### Steps
 
-**1. Start the Architect agent**
+**1. Start a fresh chat and invoke the Architect agent**
+
+> ⚠️ **Important:** Open a **new chat session** for this exercise.
 
 In Copilot Chat:
 ```
-@bmad /arch
+/bmad-architect
+```
+
+Then run the architecture workflow:
+```
+/bmad-create-architecture
 ```
 
 **2. Agent reads your PRD**
@@ -271,14 +284,22 @@ Yes
 
 **4. Review generated files**
 
-The agent creates:
-- `docs/architecture.md` - Overall architecture
-- `docs/adrs/001-react-context.md` - Architecture Decision Record
-- `docs/adrs/002-local-storage.md` - Another ADR
+The agent saves outputs to the `_bmad-output/` folder:
+- Architecture document with component diagram, data flow, and tech stack decisions
+- Architecture Decision Records (ADRs) included in the architecture document
 
-**5. Examine the architecture**
+**5. Create Epics and Stories**
 
-Open `docs/architecture.md` and find:
+After architecture is complete, still in the same chat, run:
+```
+/bmad-create-epics-and-stories
+```
+
+This breaks down your PRD into structured epics and user stories for implementation.
+
+**6. Examine the architecture**
+
+Open the architecture document from `_bmad-output/` and find:
 - **Component hierarchy** diagram
 - **Data flow** explanation
 - **Technology stack** decisions
@@ -286,9 +307,10 @@ Open `docs/architecture.md` and find:
 
 ### ✅ Success Criteria
 
-- `docs/architecture.md` exists with component diagram
-- At least 2 ADR files in `docs/adrs/`
+- Architecture document exists in `_bmad-output/` with component diagram
+- ADRs are included in the architecture document
 - Component structure shows: App → TodoList → TodoItem + AddTodoForm
+- Epics and stories created by `/bmad-create-epics-and-stories`
 
 ### 💡 Understanding ADRs
 
@@ -318,15 +340,15 @@ Use React Context API instead of Redux.
 ### ⚠️ Common Issues
 
 **"Agent can't find PRD"**
-- Make sure `docs/prd.md` exists
-- Try: `@bmad /arch --reindex`
+- Make sure the PRD was saved to `_bmad-output/` in Exercise 2
+- Start a fresh chat and try `/bmad-architect` then `/bmad-create-architecture` again
 
 **Architecture is too complex**
 - Ask: "Can you simplify the component structure?"
 - Request: "Use fewer components for now"
 
-**Missing ADR files**
-- Ask: "Can you create ADRs for the main decisions?"
+**Missing ADRs in the document**
+- Ask: "Can you add Architecture Decision Records for the main decisions?"
 
 ---
 
@@ -337,30 +359,42 @@ Use the Developer agent to generate a working React component.
 
 ### Steps
 
-**1. Start a user story**
+**1. Initialize sprint tracking (first time only)**
+
+> ⚠️ **Important:** Open a **new chat session** for this exercise.
 
 In Copilot Chat:
 ```
-@bmad /start-story
+/bmad-sm
 ```
 
-**2. Select a story**
-
-Agent shows your user stories:
+Then initialize sprint tracking:
 ```
-1. As a user, I want to add tasks so that I can track what I need to do
-2. As a user, I want to mark tasks complete so that I can see my progress
-3. As a user, I want to delete tasks so that I can remove unwanted items
-
-Which story would you like to implement? (1-3)
+/bmad-sprint-planning
 ```
 
-Type:
+**2. Create a story file**
+
+After sprint planning, run:
+```
+/bmad-create-story
+```
+
+The SM agent will show your user stories from the epics. Select:
 ```
 1
 ```
+(Story 1: Add new tasks)
 
-**3. Answer implementation questions**
+**3. Implement the story in a new chat**
+
+> ⚠️ Open another **new chat session** to implement the story.
+
+```
+/bmad-dev-story
+```
+
+**4. Answer implementation questions**
 
 **Q: "What should we name the component?"**
 ```
@@ -382,7 +416,7 @@ Clear the input field
 Yes
 ```
 
-**4. Agent generates files**
+**5. Agent generates files**
 
 You'll see:
 ```
@@ -399,7 +433,7 @@ Type:
 Yes, explain
 ```
 
-**5. Review the generated code**
+**6. Review the generated code**
 
 Open `src/components/AddTodoForm.tsx`
 
@@ -410,13 +444,13 @@ You'll see:
 - Input validation
 - TailwindCSS styling
 
-**6. Install dependencies**
+**7. Install dependencies**
 
 ```bash
 npm install
 ```
 
-**7. Run the development server**
+**8. Run the development server**
 
 ```bash
 npm run dev
@@ -424,7 +458,7 @@ npm run dev
 
 Open browser to: `http://localhost:5173`
 
-**8. Test your component**
+**9. Test your component**
 
 - Type in the input field
 - Click "Add Task" button
@@ -541,14 +575,22 @@ Complete the remaining user stories:
 
 **Story 2: Mark tasks complete**
 ```
-@bmad /start-story
-2
+# Open a new chat
+/bmad-sm
+/bmad-create-story
+# Select story 2
+# Then open a new chat:
+/bmad-dev-story
 ```
 
 **Story 3: Delete tasks**
 ```
-@bmad /start-story
-3
+# Open a new chat
+/bmad-sm
+/bmad-create-story
+# Select story 3
+# Then open a new chat:
+/bmad-dev-story
 ```
 
 ### Extend Your App
@@ -571,10 +613,10 @@ Try these challenges:
 - Add a search/filter feature
 
 **For each extension:**
-1. Update PRD with new feature
-2. Run `@bmad /arch` to update architecture
-3. Create user story
-4. Run `@bmad /start-story` to implement
+1. Update PRD with new feature (in a fresh chat with `/bmad-pm` then `/bmad-create-prd`)
+2. Run `/bmad-architect` then `/bmad-create-architecture` to update architecture
+3. Run `/bmad-sm` then `/bmad-create-story` to create user story
+4. Run `/bmad-dev-story` in a fresh chat to implement
 
 ### Learn More
 
