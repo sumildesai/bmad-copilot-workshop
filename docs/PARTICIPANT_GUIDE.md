@@ -48,17 +48,6 @@ BMad v6 installs **custom agents** and **slash commands** directly into your pro
 3. Type the slash command to invoke the agent (e.g. `/bmad-pm`)
 4. Run the relevant workflow command (e.g. `/bmad-create-prd`)
 
-**Shorthand responses** speed up every workflow:
-
-| Shorthand | Meaning |
-|-----------|---------|
-| `Y` | Yes / Agree / Accept |
-| `N` | No / Decline |
-| `A` | Accept **all** remaining defaults |
-| One-line answer | Provide everything upfront to skip follow-up questions |
-
-> ⚠️ **Key Rule:** Each BMad workflow runs in its own **fresh chat session** to prevent context overflow.
-
 ---
 
 ## Exercise 1: Install BMad Method (10 minutes)
